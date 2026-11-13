@@ -27,6 +27,11 @@ sup a{text-decoration:none}
 hr{border:0;border-top:1px solid var(--line);margin:40px 0 20px}
 ol.src{font-size:.83rem;line-height:1.6;padding-left:22px;color:var(--muted)}
 ol.src li{margin-bottom:4px;word-break:break-all}
+figure img{cursor:zoom-in}
+.lb{position:fixed;inset:0;z-index:10;display:none;align-items:center;justify-content:center;padding:12px;background:rgba(0,0,0,.92);cursor:zoom-out}
+.lb.on{display:flex}
+.lb img{max-width:100%;max-height:100%;object-fit:contain}
+.lb button{position:absolute;top:10px;right:14px;font-size:2rem;line-height:1;color:#fff;background:none;border:0;cursor:pointer;padding:6px 10px}
 </style>
 </head>
 <body>
@@ -101,5 +106,20 @@ ol.src li{margin-bottom:4px;word-break:break-all}
 </ol>
 
 </main>
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="이미지 크게 보기"><button type="button" aria-label="닫기">×</button><img alt=""></div>
+<script>
+(function(){
+  var lb=document.getElementById('lb'),big=lb.querySelector('img'),btn=lb.querySelector('button'),last=null;
+  function open(im){last=im;big.src=im.src;big.alt=im.alt;lb.classList.add('on');document.body.style.overflow='hidden';btn.focus();}
+  function close(){lb.classList.remove('on');document.body.style.overflow='';big.removeAttribute('src');if(last){last.focus();}}
+  document.querySelectorAll('figure img').forEach(function(im){
+    im.tabIndex=0;im.setAttribute('role','button');im.setAttribute('aria-label',(im.alt||'이미지')+' (크게 보기)');
+    im.addEventListener('click',function(){open(im);});
+    im.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();open(im);}});
+  });
+  lb.addEventListener('click',close);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&lb.classList.contains('on')){close();}});
+})();
+</script>
 </body>
 </html>
