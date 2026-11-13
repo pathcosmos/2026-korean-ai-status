@@ -46,14 +46,14 @@ ol.src li{margin-bottom:4px;word-break:break-all}
 <figcaption>세 번째 모델 학습 중의 서버 화면. GPU 8장이 모두 학습에 쓰이고 있다. (저자 제공)</figcaption>
 </figure>
 
-<p>저자의 경험으로 3B 모델 하나를 완성하는 데 H200 8장으로 7~8일이 걸린다. 데이터셋 수집, 최소한의 라벨링과 분류, 중복 제거, 조합 비율 책정, 토큰화까지 더하면 그 자원을 약 10일 써야 하고, 시중 데이터센터 비용으로 약 2,000만 원 이상이다. 이 단가는 공개 자료와 맞는다. H200 임대 정가는 GPU 1장 1시간에 약 5,100~14,500원이고, 8장을 10일 쓰면 약 990만~2,780만 원이다.<sup><a href="#s2">2</a></sup></p>
+<p>지금 만들고 있는 세 번째 모델을 기준으로, 3B 모델 하나를 완성하는 데 H200 8장으로 7~8일이 걸린다. 데이터셋 수집, 최소한의 라벨링과 분류, 중복 제거, 조합 비율 책정, 토큰화까지 더하면 그 자원을 약 10일 써야 하고, 시중 데이터센터 비용으로 약 2,000만 원 이상이다. 이 단가는 공개 자료와 맞는다. H200 임대 정가는 GPU 1장 1시간에 약 5,100~14,500원이고, 8장을 10일 쓰면 약 990만~2,780만 원이다.<sup><a href="#s2">2</a></sup></p>
 
-<p>문제는 그 열흘로 만들어지는 것의 크기다. 저자의 두 모델이 학습한 550억~600억 토큰은 공개된 3B급 모델 학습량(3조~36조 토큰)의 약 0.15~2%다. GPU시간으로는 공개 사례가 약 90~340배 크다. 저자의 "모델 1개 완성"은 경쟁력 있는 모델의 본학습이 아니라, 선두 팀이 데이터 조합을 비교할 때 돌리는 축소 실험 1회와 같은 규모다. 저자의 모델이 제대로 동작하지 않는 것은 이 차이와 부합한다. 다만 원인이 학습량뿐인지는 여기서 검증하지 않았다.<sup><a href="#s3">3</a></sup></p>
+<p>문제는 그 열흘로 만들어지는 것의 크기다. 앞선 두 모델은 B200 7~8장으로 60~86시간 동안 550억~600억 토큰을 학습했는데, 이는 공개된 3B급 모델 학습량(3조~36조 토큰)의 약 0.15~2%다. 세 번째 모델의 학습량은 아직 공개 전이지만, GPU시간으로 보면 공개 사례가 약 90~340배 크다. 저자의 "모델 1개 완성"은 경쟁력 있는 모델의 본학습이 아니라, 선두 팀이 데이터 조합을 비교할 때 돌리는 축소 실험 1회와 같은 규모다. 저자의 모델이 제대로 동작하지 않는 것은 이 차이와 부합한다. 다만 원인이 학습량뿐인지는 여기서 검증하지 않았다.<sup><a href="#s3">3</a></sup></p>
 
 <div class="tw"><table>
 <tr><th>항목</th><th>저자의 추산</th><th>공개 자료</th></tr>
 <tr><td>1회 비용</td><td>약 2,000만 원 이상</td><td>약 990만~2,780만 원 (H200 8장, 10일)</td></tr>
-<tr><td>1회 학습량</td><td>3B 모델 1개 완성</td><td>저자 모델 550억~600억 토큰, 공개 3B급 모델 3조~36조 토큰</td></tr>
+<tr><td>1회 학습량</td><td>3B 모델 1개 완성</td><td>저자의 앞선 두 모델 550억~600억 토큰, 공개 3B급 모델 3조~36조 토큰</td></tr>
 <tr><td>본학습 GPU시간</td><td>약 1,300~1,900</td><td>Phi-3-mini 약 12만, SmolLM3 약 28만, Llama 3.2 3B 약 46만</td></tr>
 <tr><td>조합 탐색 실험</td><td>1,000여 회, 약 200억 원</td><td>공개 사례(SmolLM3)는 100회 남짓</td></tr>
 <tr><td>3B급 한 종의 연산비</td><td>—</td><td>대략 13억~88억 원 (본학습 + 실험 100회)</td></tr>
@@ -82,7 +82,7 @@ ol.src li{margin-bottom:4px;word-break:break-all}
 
 <hr>
 <ol class="src">
-<li id="s1">모델 카드 기준: <a href="https://huggingface.co/pathcosmos/frankenstallm">FRANKENSTALLM</a>(B200 8장, 전체 약 86시간), <a href="https://huggingface.co/pathcosmos/EVAFRILL-Mo-3B">EVAFRILL-Mo-3B</a>(B200 7장, 약 60시간). 본문의 "H200 8장, 7~8일"과 기종·기간이 다르다. 코드는 <a href="https://github.com/pathcosmos/FRANKENSTALLM">GitHub</a>, <a href="https://github.com/pathcosmos/EVAFRILL-Mo">GitHub</a>.</li>
+<li id="s1">모델 카드 기준: <a href="https://huggingface.co/pathcosmos/frankenstallm">FRANKENSTALLM</a>(B200 8장, 전체 약 86시간), <a href="https://huggingface.co/pathcosmos/EVAFRILL-Mo-3B">EVAFRILL-Mo-3B</a>(B200 7장, 약 60시간). 본문의 "H200 8장, 7~8일"은 세 번째 모델 기준이다. 코드는 <a href="https://github.com/pathcosmos/FRANKENSTALLM">GitHub</a>, <a href="https://github.com/pathcosmos/EVAFRILL-Mo">GitHub</a>.</li>
 <li id="s2"><a href="https://www.thundercompute.com/blog/nvidia-h200-pricing">Thunder Compute 집계, 2026-11-04 갱신</a>. 원자료는 GPU시간당 3.85~10.85달러이고, 경쟁 업체가 만든 집계다.</li>
 <li id="s3"><a href="https://huggingface.co/blog/smollm3">SmolLM3 블로그</a>, <a href="https://huggingface.co/microsoft/Phi-3-mini-4k-instruct">Phi-3-mini 모델 카드</a>, <a href="https://github.com/meta-llama/llama-models/blob/main/models/llama3_2/MODEL_CARD.md">Llama 3.2 모델 카드</a>, <a href="https://arxiv.org/html/2502.18934">Kanana 기술보고서</a>, <a href="https://epoch.ai/data/all_ai_models.csv">Epoch AI 모델 데이터</a>.</li>
 <li id="s4"><a href="https://huggingfacetb-smol-training-playbook.hf.space/">The Smol Training Playbook</a>, <a href="https://epoch.ai/gradient-updates/r-and-d-vs-training-compute">Epoch AI 2026-03-23</a>, <a href="https://arxiv.org/html/2412.19437v1">DeepSeek-V3 기술보고서</a>. 13억~88억 원과 165억 원은 조사 과정의 계산값이다. 선두 연구소의 실험 횟수는 공개되지 않았다.</li>
